@@ -5,6 +5,7 @@ from typing import Any, Generator, List, Tuple, Type
 
 from flake8_simplify.utils import UnaryOp
 
+from flake8_scream.rules.ast_classdef import get_scr119
 from flake8_scream.rules.ast_unary_op import (
     get_scr204,
     get_scr205,
@@ -33,6 +34,10 @@ class Visitor(ast.NodeVisitor):
         self.errors += get_scr205(node)
         self.errors += get_scr206(node)
         self.errors += get_scr207(node)
+        self.generic_visit(node)
+
+    def visit_ClassDef(self, node: ast.ClassDef) -> None:
+        self.errors += get_scr119(node)
         self.generic_visit(node)
 
 

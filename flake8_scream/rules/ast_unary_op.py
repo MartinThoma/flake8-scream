@@ -22,7 +22,9 @@ def get_scr204(node: UnaryOp) -> List[Tuple[int, int, str]]:
     comparison = node.operand
     left = to_source(comparison.left)
     right = to_source(comparison.comparators[0])
-    errors.append((node.lineno, node.col_offset, SCR204.format(a=left, b=right)))
+    errors.append(
+        (node.lineno, node.col_offset, SCR204.format(a=left, b=right))
+    )
     return errors
 
 
@@ -44,7 +46,9 @@ def get_scr205(node: UnaryOp) -> List[Tuple[int, int, str]]:
     comparison = node.operand
     left = to_source(comparison.left)
     right = to_source(comparison.comparators[0])
-    errors.append((node.lineno, node.col_offset, SCR205.format(a=left, b=right)))
+    errors.append(
+        (node.lineno, node.col_offset, SCR205.format(a=left, b=right))
+    )
     return errors
 
 
@@ -66,7 +70,9 @@ def get_scr206(node: UnaryOp) -> List[Tuple[int, int, str]]:
     comparison = node.operand
     left = to_source(comparison.left)
     right = to_source(comparison.comparators[0])
-    errors.append((node.lineno, node.col_offset, SCR206.format(a=left, b=right)))
+    errors.append(
+        (node.lineno, node.col_offset, SCR206.format(a=left, b=right))
+    )
     return errors
 
 
@@ -88,5 +94,7 @@ def get_scr207(node: UnaryOp) -> List[Tuple[int, int, str]]:
     comparison = node.operand
     left = to_source(comparison.left)
     right = to_source(comparison.comparators[0])
-    errors.append((node.lineno, node.col_offset, SCR207.format(a=left, b=right)))
+    errors.append(
+        (node.lineno, node.col_offset, SCR207.format(a=left, b=right))
+    )
     return errors
