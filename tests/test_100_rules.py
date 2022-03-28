@@ -37,7 +37,9 @@ class FooBar:
     assert results == {"2:0 SCR119 Use a dataclass for 'class FooBar'"}
 
 
-@pytest.mark.xfail(reason="https://github.com/MartinThoma/flake8-simplify/issues/63")
+@pytest.mark.xfail(
+    reason="https://github.com/MartinThoma/flake8-simplify/issues/63"
+)
 def test_scr119_false_positive():
     results = _results(
         '''class OfType:

@@ -62,7 +62,10 @@ def get_scr119(node: ast.ClassDef) -> List[Tuple[int, int, str]]:
                     # It is an assignment, but we only allow
                     # `self.attribute = name`.
                     if any(
-                        [not isinstance(target, ast.Attribute) for target in el.targets]
+                        [
+                            not isinstance(target, ast.Attribute)
+                            for target in el.targets
+                        ]
                     ) or not isinstance(el.value, ast.Name):
                         has_complex_statements = True
                         break
@@ -74,6 +77,8 @@ def get_scr119(node: ast.ClassDef) -> List[Tuple[int, int, str]]:
         and has_only_dataclass_functions
         and not has_complex_statements
     ):
-        errors.append((node.lineno, node.col_offset, RULE.format(classname=node.name)))
+        errors.append(
+            (node.lineno, node.col_offset, RULE.format(classname=node.name))
+        )
 
     return errors
