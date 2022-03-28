@@ -6,3 +6,39 @@
 # flake8-scream
 
 A [flake8](https://flake8.pycqa.org/en/latest/index.html) plugin that helps you scream your code.
+
+
+## Rules
+
+* [`SCR119`](https://github.com/MartinThoma/flake8-simplify/issues/37) ![](https://shields.io/badge/-legacyfix-inactive): Use dataclasses for data containers ([example](#SCR119))
+
+
+## Disabling Rules
+
+You might have good reasons to
+[ignore some flake8 rules](https://flake8.pycqa.org/en/3.1.1/user/ignoring-errors.html).
+To do that, use the standard Flake8 configuration. For example, within the `setup.cfg` file:
+
+```python
+[flake8]
+ignore = SCR106, SCR113, SCR119, SCR9
+```
+
+## Examples
+
+### SCR119
+
+Dataclasses were introduced with [PEP 557](https://www.python.org/dev/peps/pep-0557/)
+in Python 3.7. The main reason not to use dataclasses is to support legacy Python versions.
+
+Dataclasses create a lot of the boilerplate code for you:
+
+* `__init__`
+* `__eq__`
+* `__hash__`
+* `__str__`
+* `__repr__`
+
+A lot of projects use them:
+
+* [black](https://github.com/psf/black/blob/master/src/black/__init__.py#L1472)
