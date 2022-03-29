@@ -44,3 +44,48 @@ def test_scr902_false_positive_check(s):
     error_messages = _results(s)
     for error_message in error_messages:
         assert "SCR902" not in error_message
+
+
+@pytest.mark.parametrize(
+    "s",
+    ("foo(a, b, 123123)", "foo(a, b, 123.123)"),
+    ids=["int", "float"],
+)
+def test_sim903_true_positive_check(s):
+    error_messages = _results(s)
+    assert any("SCR903" in error_message for error_message in error_messages)
+
+
+@pytest.mark.parametrize(
+    "s",
+    (
+        "dict.get('foo', 123)",
+        "set_foo(1.23)",
+        "line.set_foo(1.23)",
+        "partial(foo, 1, 2, 3)",
+        "min(0.5, g_norm)",
+        "QColor(53, 53, 53, 128)",
+    ),
+    ids=[
+        "get_exception",
+        "set_function",
+        "set_method",
+        "partial",
+        "min",
+        "color",
+    ],
+)
+def test_sim903_false_positive_check(s):
+    error_messages = _results(s)
+    for error_message in error_messages:
+        assert "SCR903" not in error_message
+
+
+def test_sim903_insert_exception():
+    ret = _results("sys.path.insert(0, 'foo')")
+    assert ret == set()
+
+
+def test_sim903_range_exception():
+    ret = _results("range(42)")
+    assert ret == set()
