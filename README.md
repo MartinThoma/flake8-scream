@@ -11,7 +11,7 @@ A [flake8](https://flake8.pycqa.org/en/latest/index.html) plugin that helps you 
 ## Rules
 
 * [`SCR119`](https://github.com/MartinThoma/flake8-simplify/issues/37) ![](https://shields.io/badge/-legacyfix-inactive): Use dataclasses for data containers ([example](#SCR119))
-
+* [`SCR902`](https://github.com/MartinThoma/flake8-simplify/issues/125): Use keyword-argument instead of magic boolean ([example](#SIM902))
 
 ## Disabling Rules
 
@@ -42,3 +42,19 @@ Dataclasses create a lot of the boilerplate code for you:
 A lot of projects use them:
 
 * [black](https://github.com/psf/black/blob/master/src/black/__init__.py#L1472)
+
+### SCR902
+
+```python
+# Bad
+foo(False)
+bar(True)
+
+# Good
+foo(verbose=False)
+bar(enable_magic=True)
+```
+
+The false-positives that are currentl not possible to fix are in positional-only
+arguments. There is no way to determine in the AST given by Flake8 if a function
+has positional-only arguments.
