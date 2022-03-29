@@ -3,8 +3,9 @@ import logging
 import sys
 from typing import Any, Generator, List, Tuple, Type
 
-from flake8_simplify.utils import UnaryOp
+from flake8_simplify.utils import Call, UnaryOp
 
+from flake8_scream.rules.ast_call import get_scr902
 from flake8_scream.rules.ast_classdef import get_scr119
 from flake8_scream.rules.ast_unary_op import (
     get_scr204,
@@ -34,6 +35,10 @@ class Visitor(ast.NodeVisitor):
         self.errors += get_scr205(node)
         self.errors += get_scr206(node)
         self.errors += get_scr207(node)
+        self.generic_visit(node)
+
+    def visit_Call(self, node: ast.Call) -> Any:
+        self.errors += get_scr902(Call(node))
         self.generic_visit(node)
 
     def visit_ClassDef(self, node: ast.ClassDef) -> None:
